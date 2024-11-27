@@ -2,7 +2,7 @@
 plugins {
     kotlin("multiplatform")
     id("com.android.library")
-    id("app.cash.sqldelight")
+    id("com.squareup.sqldelight")
 }
 
 kotlin {
@@ -22,7 +22,7 @@ kotlin {
         val commonMain by getting{}
         commonMain.dependencies {
             //put your multiplatform dependencies here
-            implementation(libs.runtime)
+            implementation("com.squareup.sqldelight:runtime:1.5.3")
             implementation(libs.kotlinx.datetime)
         }
 
@@ -34,10 +34,10 @@ kotlin {
 
         val androidMain by getting {
             dependencies {
-                implementation(libs.android.driver)
+                implementation("com.squareup.sqldelight:android-driver:1.5.3")
             }
         }
-        val androidUnitTest by getting
+        val androidTest by getting
 
         val iosX64Main by getting
         val iosArm64Main by getting
@@ -45,7 +45,7 @@ kotlin {
 
         val iosMain by creating {
             dependencies {
-                implementation(libs.native.driver)
+                implementation("com.squareup.sqldelight:native-driver:1.5.3")
             }
             dependsOn(commonMain)
             iosX64Main.dependsOn(this)
@@ -68,16 +68,15 @@ kotlin {
 }
 
 sqldelight{
-    databases{
-        create("NotesDatabase"){
-            packageName.set("com.raveline.noteskmmapplication.database")
-        }
+    database("NotesDatabase") {
+        packageName = "com.raveline.noteskmmapplication.database"
+        sourceFolders = listOf("sqldelight")
     }
 }
 
 android {
     namespace = "com.raveline.noteskmmapplication"
-    compileSdk = 34
+    compileSdk = 33
     defaultConfig {
         minSdk = 24
     }

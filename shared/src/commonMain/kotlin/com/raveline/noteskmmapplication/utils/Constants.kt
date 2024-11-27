@@ -1,6 +1,5 @@
 package com.raveline.noteskmmapplication.utils
 
-import app.cash.sqldelight.db.SqlDriver
 
 const val RedOrangeHex = 0xffffab91L
 const val LightGreenHex = 0xffe7ed9bL
