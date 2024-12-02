@@ -6,6 +6,8 @@ import androidx.lifecycle.viewModelScope
 import com.raveline.noteskmmapplication.domain.datasource.NoteDataSource
 import com.raveline.noteskmmapplication.domain.entities.Note
 import com.raveline.noteskmmapplication.domain.use_cases.SearchNotesUseCase
+import com.raveline.noteskmmapplication.utils.DateTimeUtil
+import com.raveline.noteskmmapplication.utils.RedOrangeHex
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.combine
@@ -33,6 +35,21 @@ class NoteListViewModel @Inject constructor(
         )
     }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), NoteListState())
 
+    init {
+        viewModelScope.launch {
+            (1 .. 10).forEach {
+                noteDataSource.insertNote(
+                    Note(
+                        id = null,
+                        title = "Title $it",
+                        content = "Content $it",
+                        colorHex = RedOrangeHex,
+                        createdAt = DateTimeUtil.now()
+                    )
+                )
+            }
+        }
+    }
     fun loadNotes() {
         viewModelScope.launch {
             savedStateHandle["notes"] = noteDataSource.getAllNotes()
