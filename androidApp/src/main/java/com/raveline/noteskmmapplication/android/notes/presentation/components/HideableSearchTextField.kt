@@ -5,6 +5,7 @@ import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
@@ -46,10 +47,12 @@ fun HideableSearchTextField(
             OutlinedTextField(
                 value = text,
                 onValueChange = onTextChange,
-                shape = RoundedCornerShape(32.dp),
+                shape = RoundedCornerShape(50.dp),
                 placeholder = { Text(text = "Search...") },
                 modifier = Modifier
                     .fillMaxWidth()
+                    .padding(16.dp)
+                    .padding(end = 40.dp)
                     .testTag("SearchTextField"),
                 keyboardActions = KeyboardActions(
                     onSearch = { onSearchClick() }
@@ -57,27 +60,17 @@ fun HideableSearchTextField(
                 keyboardOptions = KeyboardOptions(
                     imeAction = ImeAction.Search
                 ),
-                trailingIcon = {
-                    IconButton(onClick = onCloseClick) {
-                        Icon(
-                            imageVector = Icons.Filled.Close,
-                            tint = MaterialTheme.colors.onSurface.copy(
-                                alpha = ContentAlpha.medium
-                            ),
-                            contentDescription = stringResource(R.string.cd_close_search)
-                        )
-                    }
-                }
             )
         }
 
         AnimatedVisibility(
             visible = isSearchActive,
             enter = fadeIn(),
-            exit = fadeOut()
+            exit = fadeOut(),
+            modifier = Modifier.align(Alignment.CenterEnd)
         ) {
             IconButton(
-                onClick = { onCloseClick() },
+                onClick = onCloseClick,
                 modifier = Modifier.align(Alignment.CenterEnd).testTag("CloseButton")
             ) {
                 Icon(
@@ -90,10 +83,11 @@ fun HideableSearchTextField(
         AnimatedVisibility(
             visible = !isSearchActive,
             enter = fadeIn(),
-            exit = fadeOut()
+            exit = fadeOut(),
+            modifier = Modifier.align(Alignment.CenterEnd)
         ) {
             IconButton(
-                onClick = { onSearchClick() },
+                onClick = onSearchClick,
                 modifier = Modifier.testTag("SearchButton")
             ) {
                 Icon(

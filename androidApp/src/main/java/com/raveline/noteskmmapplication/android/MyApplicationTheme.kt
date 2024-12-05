@@ -19,40 +19,39 @@ fun MyApplicationTheme(
 ) {
     val colors = if (darkTheme) {
         Colors(
-            primary = Color(0xFFBB86FC),
-            primaryVariant = Color(0xFF3700B3),
-            secondary = Color(0xFF03DAC5),
-            secondaryVariant = Color(0xFF3700B3),
-            background = Color(0xFFE0E0E0),
-            surface = Color(0xFFE0E0E0),
-            error = Color(0xFFCF6679),
-            onPrimary = Color(0xFF000000),
-            onSecondary = Color(0xFF000000),
-            onBackground = Color(0xFF000000),
-            onSurface = Color(0xFF000000),
-            onError = Color(0xFFFFFFFF),
+            primary = Color(0xFF1E88E5), // Darker blue
+            primaryVariant = Color(0xFF1565C0), // Even darker blue
+            secondary = Color(0xFF26A69A), // Teal
+            secondaryVariant = Color(0xFF00796B), // Darker teal
+            background = Color(0xFF121212), // Dark gray
+            surface = Color(0xFF1D1D1D), // Almost black
+            error = Color(0xFFCF6679), // Red (Material Dark Error)
+            onPrimary = Color(0xFFFFFFFF), // White for contrast
+            onSecondary = Color(0xFFFFFFFF), // White for contrast
+            onBackground = Color(0xFFE0E0E0), // Light gray for readability
+            onSurface = Color(0xFFE0E0E0), // Light gray
+            onError = Color(0xFFFFFFFF), // White
             isLight = false
         )
     } else {
         Colors(
-            primary = Color(0xFF6200EE),
-            primaryVariant = Color(0xFF3700B3),
-            secondary = Color(0xFF03DAC5),
-            secondaryVariant = Color(0xFF3700B3),
-            background = Color(0xFFE0E0E0),
-            surface = Color(0xFFE0E0E0),
-            error = Color(0xFFCF6679),
-            onPrimary = Color(0xFFFFFFFF),
-            onSecondary = Color(0xFF000000),
-            onBackground = Color(0xFF000000),
-            onSurface = Color(0xFF000000),
-            onError = Color(0xFFFFFFFF),
+            primary = Color(0xFF3F51B5), // Indigo
+            primaryVariant = Color(0xFF303F9F), // Darker indigo
+            secondary = Color(0xFFFFC107), // Amber
+            secondaryVariant = Color(0xFFFFA000), // Darker amber
+            background = Color(0xFFFFFFFF), // White
+            surface = Color(0xFFFFFFFF), // White
+            error = Color(0xFFD32F2F), // Red (Material Light Error)
+            onPrimary = Color(0xFFFFFFFF), // White
+            onSecondary = Color(0xFF000000), // Black
+            onBackground = Color(0xFF000000), // Black
+            onSurface = Color(0xFF000000), // Black
+            onError = Color(0xFFFFFFFF), // White
             isLight = true
         )
     }
-    val typography = Typography(
+    val typography = Typography()
 
-    )
     val shapes = Shapes(
         small = RoundedCornerShape(4.dp),
         medium = RoundedCornerShape(4.dp),

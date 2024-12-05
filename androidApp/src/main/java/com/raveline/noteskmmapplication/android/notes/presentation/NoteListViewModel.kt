@@ -8,6 +8,7 @@ import com.raveline.noteskmmapplication.domain.entities.Note
 import com.raveline.noteskmmapplication.domain.use_cases.SearchNotesUseCase
 import com.raveline.noteskmmapplication.utils.DateTimeUtil
 import com.raveline.noteskmmapplication.utils.RedOrangeHex
+import com.raveline.noteskmmapplication.utils.colorList
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.combine
@@ -43,7 +44,7 @@ class NoteListViewModel @Inject constructor(
                         id = null,
                         title = "Title $it",
                         content = "Content $it",
-                        colorHex = RedOrangeHex,
+                        colorHex = colorList.random(),
                         createdAt = DateTimeUtil.now()
                     )
                 )

@@ -62,6 +62,8 @@ class NoteDetailViewModel @Inject constructor(
                         savedStateHandle["noteId"] = note.id
                     }
                 }
+            } else {
+                return@let
             }
         }
     }

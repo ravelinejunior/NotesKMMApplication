@@ -2,6 +2,7 @@ package com.raveline.noteskmmapplication.android.notes.presentation
 
 import android.content.res.Configuration.UI_MODE_NIGHT_YES
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
@@ -46,6 +47,10 @@ fun NoteItem(
     Column(
         modifier = modifier
             .clip(RoundedCornerShape(8.dp))
+            .border(
+                width = 1.dp,
+                color = Color.LightGray
+            )
             .background(backgroundColor)
             .clickable { onNoteClick() }
             .padding(16.dp)
@@ -58,11 +63,13 @@ fun NoteItem(
             Text(
                 text = note.title,
                 fontWeight = FontWeight.Bold,
-                fontSize = 24.sp
+                fontSize = 24.sp,
+                color = Color.DarkGray
             )
 
             Icon(
                 imageVector = Icons.Default.Close,
+                tint = Color.DarkGray,
                 contentDescription = "Delete note",
                 modifier = Modifier.clickable(
                     MutableInteractionSource(),
@@ -75,7 +82,8 @@ fun NoteItem(
 
         Text(
             text = note.content,
-            fontSize = 20.sp
+            fontSize = 20.sp,
+            color = Color.DarkGray
         )
 
         Spacer(modifier = Modifier.height(16.dp))

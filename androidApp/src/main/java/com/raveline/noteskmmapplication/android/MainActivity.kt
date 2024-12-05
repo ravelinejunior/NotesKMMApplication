@@ -3,13 +3,15 @@ package com.raveline.noteskmmapplication.android
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.NavType
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
+import com.raveline.noteskmmapplication.android.details.NotesDetailScreen
 import com.raveline.noteskmmapplication.android.notes.presentation.NotesListScreen
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -19,7 +21,30 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             MyApplicationTheme {
-                NotesListScreen()
+                val navController = rememberNavController()
+                NavHost(
+                    navController = navController,
+                    startDestination = "notes_list"
+                ) {
+                    composable(route = "notes_list") {
+                        NotesListScreen(
+                            navController = navController
+                        )
+                    }
+
+                    composable(route = "note_detail/{noteId}", arguments = listOf(
+                        navArgument("noteId") {
+                            type = NavType.LongType
+                            defaultValue = -1L
+                        }
+                    )) { backStackEntry ->
+                        val noteId = backStackEntry.arguments?.getLong("noteId") ?: -1L
+                        NotesDetailScreen(
+                            noteId = noteId,
+                            navController = navController
+                        )
+                    }
+                }
             }
         }
     }

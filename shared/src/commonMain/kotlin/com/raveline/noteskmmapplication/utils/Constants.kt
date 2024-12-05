@@ -12,3 +12,17 @@ const val VioletBlueHex = 0xffcf94da
 const val LightVioletBlueHex = 0xffea80fc
 const val ChartreuseBlueHex = 0xffe7ed9b
 const val OrangeBlackHex = 0xffea80fc
+
+val colorList = listOf(
+    RedOrangeHex,
+    LightGreenHex,
+    VioletHex,
+    LightVioletHex,
+    ChartreuseHex,
+    RedPinkHex,
+    BabyBlueHex,
+    VioletBlueHex,
+    LightVioletBlueHex,
+    ChartreuseBlueHex,
+    OrangeBlackHex
+)

@@ -8,6 +8,7 @@ import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -30,15 +31,16 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.core.graphics.toColor
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavHostController
 import com.raveline.noteskmmapplication.android.notes.presentation.components.HideableSearchTextField
 
 @SuppressLint("NewApi")
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun NotesListScreen(
-    viewModel: NoteListViewModel = hiltViewModel()
+    viewModel: NoteListViewModel = hiltViewModel(),
+    navController: NavHostController
 ) {
     val state by viewModel.state.collectAsState()
 
@@ -49,18 +51,23 @@ fun NotesListScreen(
     Scaffold(
         floatingActionButton = {
             FloatingActionButton(
-                onClick = { /*TODO*/ },
+                onClick = {
+                    navController.navigate("note_detail/-1L")
+                },
                 backgroundColor = MaterialTheme.colors.surface
             ) {
                 Icon(imageVector = Icons.Default.Add, contentDescription = "Add note")
             }
         }
     ) { paddingValues ->
-        Column {
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(paddingValues)
+        ) {
             Box(
                 modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(paddingValues),
+                    .fillMaxWidth(),
                 contentAlignment = Alignment.Center
             ) {
                 HideableSearchTextField(
@@ -75,7 +82,6 @@ fun NotesListScreen(
                         .align(
                             Alignment.Center
                         ),
-
                 )
 
                 this@Column.AnimatedVisibility(
@@ -84,9 +90,9 @@ fun NotesListScreen(
                     exit = fadeOut()
                 ) {
                     Text(
-                        text = "Notes",
+                        text = "All Notes",
                         fontWeight = FontWeight.Bold,
-                        fontSize = 32.sp
+                        fontSize = 24.sp
                     )
                 }
             }
@@ -97,7 +103,9 @@ fun NotesListScreen(
                     NoteItem(
                         note = note,
                         backgroundColor = Color(note.colorHex),
-                        onNoteClick = { },
+                        onNoteClick = {
+                            navController.navigate("note_detail/${note.id}")
+                        },
                         onDeleteClick = { viewModel.deleteNote(note) },
                         modifier = Modifier
                             .fillMaxWidth()
