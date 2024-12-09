@@ -49,10 +49,10 @@ class NoteDetailViewModel @Inject constructor(
     private val _hasNoteBeenSaved = MutableStateFlow(false)
     val hasNoteBeenSaved = _hasNoteBeenSaved.asStateFlow()
 
-    private var existingNoteId: Long? = null
+    private var existingNoteId: Long? = savedStateHandle.get<Long>("noteId")
 
     init {
-        savedStateHandle.get<Long>("noteId")?.let { existingNoteId ->
+        existingNoteId?.let { existingNoteId ->
             if (existingNoteId != -1L) {
                 viewModelScope.launch {
                     noteDataSource.getNoteById(existingNoteId)?.also { note ->
@@ -84,9 +84,32 @@ class NoteDetailViewModel @Inject constructor(
         savedStateHandle["noteContentFocused"] = isFocused
     }
 
-    fun saveNote() {
+    fun upsertNote() {
+        if (existingNoteId != null && existingNoteId != -1L) {
+            updateNote()
+        } else {
+            saveNote()
+        }
+    }
+
+    private fun saveNote() {
         viewModelScope.launch {
             noteDataSource.insertNote(
+                Note(
+                    id = null,
+                    title = noteTitle.value,
+                    content = noteContent.value,
+                    colorHex = noteColor.value,
+                    createdAt = DateTimeUtil.now()
+                )
+            )
+            _hasNoteBeenSaved.value = true
+        }
+    }
+
+    private fun updateNote() {
+        viewModelScope.launch {
+            noteDataSource.updateNote(
                 Note(
                     id = existingNoteId,
                     title = noteTitle.value,

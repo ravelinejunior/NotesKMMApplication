@@ -46,10 +46,10 @@ fun NoteItem(
 
     Column(
         modifier = modifier
-            .clip(RoundedCornerShape(8.dp))
+            .clip(RoundedCornerShape(16.dp))
             .border(
-                width = 1.dp,
-                color = Color.LightGray
+                width = 2.dp,
+                color = MaterialTheme.colors.surface
             )
             .background(backgroundColor)
             .clickable { onNoteClick() }

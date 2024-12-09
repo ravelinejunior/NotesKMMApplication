@@ -7,7 +7,7 @@ CREATE TABLE NoteEntity(
 );
 
 getAllNotes:
-SELECT * FROM NoteEntity;
+SELECT * FROM NoteEntity ORDER BY createdAt DESC;
 
 getNoteById:
 SELECT * FROM NoteEntity WHERE id = ?;

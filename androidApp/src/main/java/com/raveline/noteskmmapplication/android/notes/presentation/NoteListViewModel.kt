@@ -38,7 +38,8 @@ class NoteListViewModel @Inject constructor(
 
     init {
         viewModelScope.launch {
-            (1 .. 10).forEach {
+            loadNotes()
+            /*(1 .. 10).forEach {
                 noteDataSource.insertNote(
                     Note(
                         id = null,
@@ -48,7 +49,7 @@ class NoteListViewModel @Inject constructor(
                         createdAt = DateTimeUtil.now()
                     )
                 )
-            }
+            }*/
         }
     }
     fun loadNotes() {
@@ -63,8 +64,10 @@ class NoteListViewModel @Inject constructor(
     }
 
     fun onToggleSearch() {
-        savedStateHandle["isSearchActive"] = false
-        savedStateHandle["searchText"] = ""
+        savedStateHandle["isSearchActive"] = !isSearchActive.value
+        if(!isSearchActive.value) {
+            savedStateHandle["searchText"] = ""
+        }
     }
 
     fun deleteNote(note: Note) {

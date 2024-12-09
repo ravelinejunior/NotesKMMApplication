@@ -46,7 +46,7 @@ fun NotesDetailScreen(
     Scaffold(
         floatingActionButton = {
             FloatingActionButton(
-                onClick = viewModel::saveNote,
+                onClick = viewModel::upsertNote,
                 backgroundColor = MaterialTheme.colors.surface
             ) {
                 Icon(imageVector = Icons.Default.Check, contentDescription = "Check note")
@@ -65,8 +65,8 @@ fun NotesDetailScreen(
                 hint = "Enter a title ...",
                 isHintVisible = state.isNoteTitleTextFocused,
                 singleLine = true,
-                textStyle = MaterialTheme.typography.h5.copy(
-                    fontSize = 20.sp
+                textStyle = MaterialTheme.typography.h3.copy(
+                    fontSize = 20.sp,
                 ),
                 onValueChange = viewModel::onNoteTitleChange,
                 onFocusChanged = {
@@ -78,7 +78,7 @@ fun NotesDetailScreen(
                 text = state.noteContent,
                 hint = "Enter the content ...",
                 isHintVisible = state.isNoteContentTextFocused,
-                singleLine = true,
+                singleLine = false,
                 textStyle = MaterialTheme.typography.h5.copy(
                     fontSize = 20.sp
                 ),
